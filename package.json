@@ -1,0 +1,121 @@
+{
+  "name": "hiwin",
+  "displayName": "hiWin",
+  "description": "",
+  "version": "0.0.1",
+  "publisher": "howin",
+  "repository": {
+    "url": "https://github.com/howin98/hiwin"
+  },
+  "icon": "img/logo.png",
+  "engines": {
+    "vscode": "^1.72.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:hiWin.updateWin"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "hiWin",
+      "properties": {
+        "hiWin.properties": {
+          "type": "object",
+          "default": {
+            "hinWin.properties.opacity": 255,
+            "hinWin.properties.z-order": "no top most",
+            "hinWin.properties.show": "maximize"
+          },
+          "properties": {
+            "hinWin.properties.opacity": {
+              "type": "integer",
+              "minimum": 180,
+              "maximum": 255
+            },
+            "hinWin.properties.z-order": {
+              "type": "string",
+              "enum": [
+                "bottom",
+                "no top most",
+                "top",
+                "top most"
+              ],
+              "enumDescriptions": [
+                "Place vscode window at bottom",
+                "Place vscode window above non-topmost windows",
+                "Place vscode window above all",
+                "Set vscode window as top most layer"
+              ]
+            },
+            "hinWin.properties.show": {
+              "type": "string",
+              "enum": [
+                "hide",
+                "maximize",
+                "minimize",
+                "activate"
+              ],
+              "enumDescriptions": [
+                "Hide the vscode window",
+                "Maximize the vscode window",
+                "Minimize the vscode window",
+                "Activate the vscode window"
+              ]
+            },
+            "hinWin.properties.pos-and-size": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "properties": {
+                "type": "integer"
+              },
+              "minItems": 4,
+              "maxItems": 4,
+              "default": null
+            }
+          }
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "hiWin.updateWin",
+        "title": "hiWin: Update Window properties"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.0.0",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.72.0",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
+    "@vscode/test-electron": "^2.1.5",
+    "eslint": "^8.24.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.0.0",
+    "ts-loader": "^9.4.1",
+    "typescript": "^4.8.4",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "node-powershell": "^4.0.0"
+  }
+}

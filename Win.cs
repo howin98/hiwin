@@ -24,7 +24,7 @@ namespace Hi
                     WS windowLong = User32.GetWindowLong(hWnd, GWL.EXSTYLE);
                     User32.SetWindowLong(hWnd, GWL.EXSTYLE, windowLong | WS.EX_LAYERED);
 
-                    return User32.SetLayeredWindowAttributes(hWnd, 0, alpha, LWA.ALPHA) && User32.SetWindowPos(hWnd, z, x, y, cx, cy, swp) && User32.ShowWindow(hWnd, show);
+                    return User32.ShowWindow(hWnd, show) && User32.SetLayeredWindowAttributes(hWnd, 0, alpha, LWA.ALPHA) && User32.SetWindowPos(hWnd, z, x, y, cx, cy, swp);
                 }, IntPtr.Zero);
 
                 if (!result) { return false; }

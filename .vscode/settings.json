@@ -19,5 +19,6 @@
         "hinWin.properties.opacity": 255,
         "hinWin.properties.z-order": "no top most",
         "hinWin.properties.show": "maximize"
-    }
+    },
+    "here.index": 1
 }

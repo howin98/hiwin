@@ -126,10 +126,11 @@ class WinManagement {
 		);
 	}
 
-	public async apply(context: vscode.ExtensionContext) {
+	public async apply(context: vscode.ExtensionContext, path: string) {
 		this.updateConfig();
 		if (this.config) {
-			const path = context.asAbsolutePath('./Win.cs');
+			let { swp, x, y, cx, cy } = this.getPosAndSize();
+
 			const shell = require('node-powershell');
 			const ps = new shell({
 				executionPolicy: 'RemoteSigned',
@@ -137,23 +138,27 @@ class WinManagement {
 			});
 
 			context.subscriptions.push(ps);
+
 			ps.addCommand('[Console]::OutputEncoding = [Text.Encoding]::UTF8');
 			ps.addCommand(`Add-Type -Path '${path}'`);
-			let { swp, x, y, cx, cy } = this.getPosAndSize();
 			ps.addCommand(
 				`[Hi.Win]::SetProperties(${process.pid
 				}, ${this.getOpacity()}, ${this.getZorder()}, ${this.getShow()}, ${swp}, ${x}, ${y}, ${cx}, ${cy})`
 			);
 
-			let res = await ps.invoke();
-			console.log(res);
+			await ps.invoke();
 		}
 	}
 }
 
 export function activate(context: vscode.ExtensionContext) {
-	let disposable = vscode.commands.registerCommand('hiWin.updateWin', () => {
-		WinManagement.getInstance().apply(context);
+	const path: string = context.asAbsolutePath('./Win.cs');
+	// Initialize Vs Code window
+	WinManagement.getInstance().apply(context, path);
+
+	// Register command
+	let disposable = vscode.commands.registerCommand('hiWin.updateWin', async () => {
+		await WinManagement.getInstance().apply(context, path);
 	});
 
 	context.subscriptions.push(disposable);

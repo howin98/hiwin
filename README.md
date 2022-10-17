@@ -2,6 +2,8 @@
 
 hiwin is a vscode extension to manage vscode window on ms-windows platform, it offers the control of opacity, size, position, z-mode, max/minimize about window.
 
+auto set windows properties when the vscode window is open.
+    "hiWin.auto-load": true
 
 ``` json
 {

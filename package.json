@@ -2,7 +2,7 @@
   "name": "hiwin",
   "displayName": "hiWin",
   "description": "HiWin make vsc window management easier",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "howin",
   "repository": {
     "url": "https://github.com/howin98/hiwin"
@@ -16,6 +16,9 @@
   ],
   "activationEvents": [
     "*"
+  ],
+  "extensionKind": [
+    "ui"
   ],
   "main": "./dist/extension.js",
   "contributes": {
